@@ -45,6 +45,11 @@ bool Attendance::isValidAttendeeId(int attendeeId){
     else return true;
 }
 
+int Attendance::setCountLadiesAndGents(int countLadies, int countGents){
+    _mCountLadies[_mCurrentDateId]=countLadies;
+    _mCountGents[_mCurrentDateId]=countGents;
+}
+
 int Attendance::setDate(string date){
     string dateStr=string(date);
     for(int i=0;i<_mDate.size();i++){
@@ -55,6 +60,8 @@ int Attendance::setDate(string date){
     }
     _mDate.push_back(dateStr);
     _mMarkedAttendeeIds.push_back(set<int>());
+    _mCountLadies.push_back(0);
+    _mCountGents.push_back(0);
     _mCurrentDateId=_mDate.size()-1;
     return 0;
 }
@@ -92,7 +99,6 @@ int Attendance::getNametoId(const string& name){
         }
     }
     if(best_match_id>=0){
-        cout<<_mAttendees[best_match_id]<<endl;
     }   
     return best_match_id;
 }
@@ -109,9 +115,11 @@ int Attendance::updateAttendance(int attendeeId, Action action){
     else {
         if(action==MARK){
             _mMarkedAttendeeIds[_mCurrentDateId].insert(attendeeId);
+            printf("%s\n",_mAttendees[attendeeId].c_str());
         }
         else if(action==UNMARK){
             _mMarkedAttendeeIds[_mCurrentDateId].erase(attendeeId);
+            printf("%s unmarked\n",_mAttendees[attendeeId].c_str());
         }
         else{
             //do nothing
@@ -126,6 +134,9 @@ void Attendance::render(){
     fprintf(f,"Name");
     int date_id=0;
     for(string dateStr:_mDate){
+        if(_mMarkedAttendeeIds[date_id++].empty()){
+                continue;
+        }
         fprintf(f,",%s",dateStr.c_str());
     }
     for(int attendeeid=0;attendeeid<_mAttendees.size();attendeeid++){
@@ -133,12 +144,30 @@ void Attendance::render(){
         string name=_mAttendees.at(attendeeid);
         fprintf(f,"%s",name.c_str());
         for(int dateid=0;dateid<_mDate.size();dateid++){
+            if(_mMarkedAttendeeIds[dateid].empty()){
+                continue;
+            }
             if(_mMarkedAttendeeIds[dateid].find(attendeeid)!=_mMarkedAttendeeIds[dateid].end()){
                 fprintf(f,",%d",1);
             }
             else
                 fprintf(f,",");
         }
+    }
+
+    fprintf(f,"\nL:");
+    for(int date_id=0;date_id<_mDate.size();date_id++){
+        if(_mMarkedAttendeeIds[date_id].empty()){
+                continue;
+        }
+        fprintf(f,",%d",_mCountLadies[date_id]);    
+    }
+    fprintf(f,"\nG:");
+    for(int date_id=0;date_id<_mDate.size();date_id++){
+        if(_mMarkedAttendeeIds[date_id].empty()){
+                continue;
+        }
+        fprintf(f,",%d",_mCountGents[date_id]);    
     }
     fclose(f); 
 }

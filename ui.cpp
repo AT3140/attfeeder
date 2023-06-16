@@ -47,6 +47,11 @@ void UserInterface::startDateUI(){
         else if(command=="man"){
             printManual();
         }
+        else if(command=="count"){
+            string countLadiesStr="0",countGentsStr="0";
+            is>>countLadiesStr; is>>countGentsStr;
+            att.setCountLadiesAndGents(stoi(countLadiesStr),stoi(countGentsStr));
+        }
         else{
             string name="";
             Attendance::Action action=Attendance::UNAWARE;
@@ -81,6 +86,9 @@ void UserInterface::startUI(){
             att.setDate(date);
             startDateUI();
         }
+        else if(command=="l"){
+            att.validateAttendees();
+        }
         else if(command=="m"){
             att.printMarkedAttendees();
         }
@@ -89,6 +97,12 @@ void UserInterface::startUI(){
         }
         else if(command=="r"){
             att.render();
+        }
+        else if(command=="exit"){
+            break;
+        }
+        else{
+            cout<<"unrecognized command... enter man to view manual\n";
         }
     }while(command!=string("exit"));
 }

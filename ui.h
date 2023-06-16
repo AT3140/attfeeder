@@ -21,18 +21,22 @@ class UserInterface{
         Attendance& att;
 };
 
-inline void printManual(){
-    cout<<"#UI (att)"
-        <<"d <date> : set date and start marking\n"
-        <<"r : render into csv\n"
-        <<"exit : exit application\n"
-        <<"#\n"
-        <<"#DateUI (<date>)\n"
-        <<"rm <name> : unmark attendee by name\n"
-        <<"l : lists all attendees\n"
-        <<"m : prints marked attendees for each date\n"
-        <<"clear : clears all marked entries for current date\n"
-        <<"exit : switch to (att)\n"
-    ;
+inline void UserInterface::printManual(){
+    cout<<"  #UI (att)\n"
+        <<"  d <date>\t: set date and switch to DateUI\n"
+        <<"  r\t\t: render\n"
+        <<"  l\t\t: lists all attendees\n"
+        <<"  man\t\t: print manual\n"
+        <<"  exit\t\t: exit application\n"
+        <<"\n"
+        <<"  #DateUI (<date>)\n"
+        <<"  <name>\t\t: mark attendee by name\n"
+        <<"  rm <name>\t: unmark attendee by name\n"
+        <<"  count <ladies> <gents> : set count\n"
+        <<"  m\t\t: prints marked attendees for each date\n"
+        <<"  clear\t\t: clears all marked entries for current date\n"
+        <<"  l\t\t: lists all attendees\n"
+        <<"  man\t\t: print manual\n"
+        <<"  exit\t\t: switch to (att)\n";
 }
 #endif

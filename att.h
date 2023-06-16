@@ -23,6 +23,7 @@ class Attendance{
         void init();
         bool isValidationEnabled();
         void validateAttendees();
+        int setCountLadiesAndGents(int countLadies,int countGents);
         int setDate(string date);
         string getDate();
         void clearCurrentDate();
@@ -34,6 +35,8 @@ class Attendance{
     private:
         vector<string> _mAttendees;
         vector<string> _mDate;
+        vector<int> _mCountLadies;
+        vector<int> _mCountGents;
         int _mCurrentDateId;
         vector<set<int>> _mMarkedAttendeeIds;
         char* db;
