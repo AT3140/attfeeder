@@ -44,6 +44,9 @@ void UserInterface::startDateUI(){
         else if(command=="clear"){
             att.clearCurrentDate();
         }
+        else if(command=="man"){
+            printManual();
+        }
         else{
             string name="";
             Attendance::Action action=Attendance::UNAWARE;
@@ -80,6 +83,9 @@ void UserInterface::startUI(){
         }
         else if(command=="m"){
             att.printMarkedAttendees();
+        }
+        else if(command=="man"){
+            printManual();
         }
         else if(command=="r"){
             att.render();
