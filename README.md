@@ -33,7 +33,8 @@ raj shekhar,0,0
 ram prakash,1,0
 prem chand,0,1
 ```
- 
+
+User may import these into a .xlsx file 
 ------
 
 ### Commands
