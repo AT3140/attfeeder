@@ -1,19 +1,18 @@
 # attfeeder
 For Quick Attendance!
 
-
 ### Build<br>
 g++ src.cpp att.h ui.h att.cpp ui.cpp -o att
 
-=========================<br>
+-----
 
 ### Run Application
 
 >att -db \<file_name> -csv \<file_name.csv><br>
   
-use -v option for validation of input<br>
+use -v option for validation of input
 
-=========================<br>
+---
 Input
 
 Under option -db as an ASCII file<br>
@@ -25,7 +24,7 @@ prem chand
 ```
 Each line contains single name
 
-=========================<br>
+-----
 
 Output<br>
 ```csv
@@ -35,20 +34,17 @@ ram prakash,1,0
 prem chand,0,1
 ```
  
-=========================<br>
+------
 
-### Commands<br>
+### Commands
 
-#### #UI<br>
+#### #UI
   - d \<date>      : set date and switch to DateUI<br>
   - r             : render<br>
   - l             : lists all attendees as in db<br>
   - man           : print manual<br>
-  - exit          : exit application
-
-------------------------------------------<br>
-
-#### #DateUI<br>
+  - exit          : exit application<br>
+#### #DateUI
   - rm \<name>     : unmark attendee by name<br>
   - m             : prints marked attendees for each date<br>
   - count \<ladies> \<gents> : set count<br>
@@ -57,4 +53,4 @@ prem chand,0,1
   - man           : print manual<br>
   - exit          : switch to (att)<br>
 
-==========================<br>
+-----
