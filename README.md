@@ -37,7 +37,7 @@ ram prakash,1,0
 prem chand,0,1
 ```
 
-User may import this into a .xlsx file <br>
+User may import this into spreadsheet <br>
 
 ------
 
