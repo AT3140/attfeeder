@@ -1,8 +1,8 @@
 # attfeeder
 For Quick Attendance!
 
-### Build<br>
-g++ src.cpp att.h ui.h att.cpp ui.cpp -o att
+### Build
+>g++ src.cpp att.h ui.h att.cpp ui.cpp -o att
 
 -----
 
