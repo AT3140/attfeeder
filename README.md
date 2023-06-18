@@ -39,12 +39,15 @@ prem chand,0,1
 ### Commands
 
 #### #UI
+>(att)
   - d \<date>      : set date and switch to DateUI<br>
   - r             : render<br>
   - l             : lists all attendees as in db<br>
   - man           : print manual<br>
   - exit          : exit application<br>
-#### #DateUI
+#### #DateUI 
+>(\<date>)
+  - \<name> : mark attendee by name<br>
   - rm \<name>     : unmark attendee by name<br>
   - m             : prints marked attendees for each date<br>
   - count \<ladies> \<gents> : set count<br>
