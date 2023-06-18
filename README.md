@@ -54,6 +54,7 @@ User may import this into spreadsheet <br>
 >(\<date>)
   - \<name> : mark attendee by name<br>
   - rm \<name>     : unmark attendee by name<br>
+  - d \<date>      : switch date<br>
   - m             : prints marked attendees for each date<br>
   - count \<ladies> \<gents> : set count<br>
   - clear         : clears all marked entries for current date<br>
