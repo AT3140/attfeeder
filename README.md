@@ -15,7 +15,8 @@ use -v option for validation of input
 ---
 Input
 
-Under option -db as an ASCII file<br>
+Under option -db as an ASCII file
+
 Ex: yoga_attendees.txt
 ```txt
 raj shekhar
@@ -26,7 +27,8 @@ Each line contains single name
 
 -----
 
-Output<br>
+Output
+
 Ex: yoga_attendees.csv
 ```csv
 name,date1,date2
