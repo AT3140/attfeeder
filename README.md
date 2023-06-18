@@ -52,5 +52,3 @@ prem chand,0,1
   - l             : lists all attendees as in db<br>
   - man           : print manual<br>
   - exit          : switch to (att)<br>
-
------
