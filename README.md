@@ -27,6 +27,7 @@ Each line contains single name
 -----
 
 Output<br>
+Ex: yoga_attendees.csv
 ```csv
 name,date1,date2
 raj shekhar,0,0
@@ -34,7 +35,7 @@ ram prakash,1,0
 prem chand,0,1
 ```
 
-User may import these into a .xlsx file 
+User may import this into a .xlsx file <br>
 
 ------
 
