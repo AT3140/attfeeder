@@ -8,6 +8,14 @@
 
 using namespace std;
 
+typedef struct attribute {
+    string date;
+    string title;
+    set<int> markedAttendeeIds;
+    int countLadies;
+    int countGents;
+} attribute;
+
 class Attendance{
     public:
         enum Action{
@@ -15,30 +23,44 @@ class Attendance{
             UNMARK,
             UNAWARE
         };
+
         explicit Attendance(char* db_name, char* csv_file_name, bool validate) :
+            _mCurrentAttributeId(-1),
             db(db_name),
             csv(csv_file_name),
             allowValidation(validate)
-            {init();}
+        {
+            init(); 
+        }
+
         void init();
+
         bool isValidationEnabled();
         void validateAttendees();
         int setCountLadiesAndGents(int countLadies,int countGents);
-        int setDate(string date);
-        string getDate();
+        void setSession(const string& date, const string& title); 
+        string getSession();
         void clearCurrentDate();
         void printMarkedAttendees();
         int getNametoId(const string& name);
         bool isValidAttendeeId(int attendeeId);
         int updateAttendance(int attendeeId,Action action);
+        set<int> getActiveSessionIds(const string& date); 
+        const string& getSessionTitle(int id); 
+
         void render();
+    
     private:
+        void renderColumnHeads(FILE* f);
+        void renderRecords(FILE* f);
+        void renderCounts(FILE* f);
+
+        void adjustEmplaceAtIndex(int& index); //TODO: called in setSession
+
+    private:
+        vector<attribute> _mAttributes;
         vector<string> _mAttendees;
-        vector<string> _mDate;
-        vector<int> _mCountLadies;
-        vector<int> _mCountGents;
-        int _mCurrentDateId;
-        vector<set<int>> _mMarkedAttendeeIds;
+        int _mCurrentAttributeId;
         char* db;
         char* csv;
         bool allowValidation;
@@ -50,8 +72,8 @@ inline bool Attendance::isValidationEnabled(){
     return allowValidation;
 }
 
-inline string Attendance::getDate(){
-    return _mDate.at(_mCurrentDateId);
+inline string Attendance::getSession(){
+    return _mAttributes.at(_mCurrentAttributeId).date + ":" + _mAttributes.at(_mCurrentAttributeId).title;
 }
 
 #endif 

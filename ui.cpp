@@ -19,9 +19,30 @@ string gatherStrFromStream(istringstream &iss){
     return str;
 }
 
+void UserInterface::respondToDateCommand(istringstream& is){
+    string date=gatherStrFromStream(is);
+    string title;
+    cout<<"Active Sessions: ";
+    set<int> activeSessionIds = att.getActiveSessionIds(date); 
+    if(activeSessionIds.empty()){
+        cout<<"--\n";
+    }
+    else {
+        for(int id:activeSessionIds){
+            string title = att.getSessionTitle(id);
+            cout<<att.getSessionTitle(id)<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<"Enter Session Title: ";
+    cin>>title;
+    fflush(stdin);
+    att.setSession(date,title);
+}
+
 void UserInterface::startDateUI(){
     do{
-        printf("(%s) ",att.getDate().c_str());
+        printf("(%s) ",att.getSession().c_str());
         char cinput[256];
         cin.getline(cinput,256);
         string input(cinput);
@@ -35,8 +56,7 @@ void UserInterface::startDateUI(){
             att.printMarkedAttendees();
         }
         else if(command=="d"){
-            string date=gatherStrFromStream(is);
-            att.setDate(date);
+            respondToDateCommand(is);
         }
         else if(command=="l"){
             att.validateAttendees();
@@ -82,8 +102,7 @@ void UserInterface::startUI(){
         istringstream iss(inputStr);
         iss>>command;
         if(command==string("d")){
-            string date=gatherStrFromStream(iss);
-            att.setDate(date);
+            respondToDateCommand(iss);
             startDateUI();
         }
         else if(command=="l"){

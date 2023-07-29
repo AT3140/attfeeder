@@ -2,6 +2,7 @@
 #define UI_H
 #include <iostream>
 #include <string>
+#include <set>
 #include <sstream>
 //#include <boost/algorithm/string/trim.hpp>
 
@@ -17,6 +18,7 @@ class UserInterface{
         void startUI();
     private:
         void startDateUI();
+        void respondToDateCommand(istringstream& is);
         void printManual();
         Attendance& att;
 };
