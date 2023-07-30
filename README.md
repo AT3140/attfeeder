@@ -32,6 +32,7 @@ Output
 Ex: yoga_attendees.csv
 ```csv
 name,date1,date2
+,title1,title2
 raj shekhar,0,0
 ram prakash,1,0
 prem chand,0,1
@@ -47,17 +48,18 @@ User may import this into spreadsheet <br>
 >(att)
   - d \<date>      : set date and switch to DateUI<br>
   - r             : render<br>
-  - l             : lists all attendees as in db<br>
+  - ls             : lists all attendees as in db<br>
   - man           : print manual<br>
   - exit          : exit application<br>
 #### #DateUI 
 >(\<date>)
   - \<name> : mark attendee by name<br>
   - rm \<name>     : unmark attendee by name<br>
+  - register \<name>     : register attendee<br>
   - d \<date>      : switch date<br>
   - m             : prints marked attendees for each date<br>
   - count \<ladies> \<gents> : set count<br>
   - clear         : clears all marked entries for current date<br>
-  - l             : lists all attendees as in db<br>
+  - ls             : lists all attendees as in db<br>
   - man           : print manual<br>
   - exit          : switch to (att)<br>

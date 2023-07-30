@@ -34,6 +34,11 @@ class Attendance{
         }
 
         void init();
+        
+        const string& getCurrentSessionDate();
+        const string& getCurrentSessionTitle();
+        const string& getSessionTitle(int id); 
+        set<int> getActiveSessionIds(const string& date); 
 
         bool isValidationEnabled();
         void validateAttendees();
@@ -44,10 +49,7 @@ class Attendance{
         int getNametoId(const string& name);
         bool isValidAttendeeId(int attendeeId);
         int updateAttendance(int attendeeId,Action action);
-        set<int> getActiveSessionIds(const string& date); 
-        const string& getSessionTitle(int id); 
-        const string& getCurrentSessionDate();
-        const string& getCurrentSessionTitle();
+        int registerAttendee(const string& name);
 
         void render();
     

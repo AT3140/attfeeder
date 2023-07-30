@@ -58,7 +58,7 @@ void UserInterface::startDateUI(){
         else if(command=="d"){
             respondToDateCommand(is);
         }
-        else if(command=="l"){
+        else if(command=="ls"){
             att.validateAttendees();
         }
         else if(command=="clear"){
@@ -71,25 +71,50 @@ void UserInterface::startDateUI(){
             string countLadiesStr="0",countGentsStr="0";
             is>>countLadiesStr; is>>countGentsStr;
             att.setCountLadiesAndGents(stoi(countLadiesStr),stoi(countGentsStr));
-        }
-        else{
+        }    
+        else { 
             string name="";
-            Attendance::Action action=Attendance::UNAWARE;
+            int pid = -1;
+            Attendance::Action action = Attendance::UNAWARE;
             if(command=="rm"){
+                name = gatherStrFromStream(is);
+                pid = att.getNametoId(name);
+                action = Attendance::UNMARK;
+            }
+            else if(command=="register"){
                 name=gatherStrFromStream(is);
-                action=Attendance::UNMARK;
+                pid=att.registerAttendee(name);
+                cout<<"Registered "<<endl;
+                action = Attendance::UNAWARE;
             }
             else{
                 name=command+" "+gatherStrFromStream(is);
-                action=Attendance::MARK;
+                pid=att.getNametoId(name);
+                if(att.isValidAttendeeId(pid)){
+                    action = Attendance::MARK;
+                }
+                else {
+                    action = Attendance::UNAWARE;
+                    char response;
+                    cout<<"Name Not Found!\n";
+                    while(true){
+                        cout<<"Register this Attendee? (y/n): ";
+                        cin>>response;
+                        fflush(stdin);
+                        if(response == 'y') {
+                            pid = att.registerAttendee(name);
+                            action = Attendance::UNAWARE;
+                            break;
+                        }
+                        else if(response == 'n') {
+                            break;
+                        }
+                    }
+                }
             }
-            int pid=att.getNametoId(name);
-            if(pid>=0){
-                att.updateAttendance(pid,action);
-            }
-            else cout<<"Name Not Found!\n";
+            att.updateAttendance(pid,action); 
         }
-    }while(true);
+    } while(true);
 }
 
 void UserInterface::startUI(){
@@ -105,7 +130,7 @@ void UserInterface::startUI(){
             respondToDateCommand(iss);
             startDateUI();
         }
-        else if(command=="l"){
+        else if(command=="ls"){
             att.validateAttendees();
         }
         else if(command=="m"){

@@ -15,11 +15,20 @@ void string_to_lowercase(string& target){
 
 void Attendance::init(){
     char temp[256];
+    string tempStr;
     ifstream ifs(db,ifstream::in);
     while(ifs){
-    ifs.getline(temp,256);
-    _mAttendees.push_back(string(temp)); 
+        ifs.getline(temp,256);
+        tempStr = string(temp);
+        if(!tempStr.empty()){
+            _mAttendees.push_back(string(temp)); 
+        }
     }
+}
+
+int Attendance::registerAttendee(const string& name){
+    _mAttendees.push_back(name);
+    return _mAttendees.size() - 1;
 }
 
 void Attendance::validateAttendees(){
@@ -55,7 +64,6 @@ void Attendance::adjustEmplaceAtIndex(int& index){
 }
 
 void Attendance::setSession(const string& date, const string& title){
-    
     int emplaceAtIndex = -1;
     for(int i=0;i<_mAttributes.size();i++){
         if((date == _mAttributes[i].date) && (title == _mAttributes[i].title)){
@@ -148,20 +156,24 @@ int Attendance::updateAttendance(int attendeeId, Action action){
         cerr<<"Date not set!";
         return -1;
     }
-    else if(!isValidAttendeeId(attendeeId)){
-        cerr<<"Attendee not found!";
-        return -1;
-    }
     else {
+        attribute& currentAttribute = _mAttributes[_mCurrentAttributeId];
         if(action==MARK){
-            _mAttributes[_mCurrentAttributeId].markedAttendeeIds.insert(attendeeId);
-            printf("%s\n",_mAttendees[attendeeId].c_str());
+            if(currentAttribute.markedAttendeeIds.find(attendeeId) != currentAttribute.markedAttendeeIds.end()) {
+               printf("%s\nalready marked!\n",_mAttendees[attendeeId].c_str());
+            }
+            else {         
+                if(isValidAttendeeId(attendeeId)) {    
+                    currentAttribute.markedAttendeeIds.insert(attendeeId);
+                    printf("%s\n",_mAttendees[attendeeId].c_str());
+                }
+            }
         }
         else if(action==UNMARK){
-            _mAttributes[_mCurrentAttributeId].markedAttendeeIds.erase(attendeeId);
+            currentAttribute.markedAttendeeIds.erase(attendeeId);
             printf("%s unmarked\n",_mAttendees[attendeeId].c_str());
         }
-        else{
+        else if(action==UNAWARE){
             //do nothing
         }
         
@@ -229,23 +241,22 @@ void Attendance::render(){
 
     renderColumnHeads(f);
     renderRecords(f);
+    fprintf(f,"\n");
     renderCounts(f);
 
     fclose(f); 
 }
 
 void Attendance::printMarkedAttendees(){
-    for(int date_id=0;date_id<_mAttributes.size();date_id++){
-        if(_mAttributes[date_id].markedAttendeeIds.empty()){
-            continue;
-        }
-        cout<<"Date Id: "<<date_id;
-        cout<<"\nDate: "<<_mAttributes[date_id].date;
-        cout<<"\n";
+    attribute currentAttribute = _mAttributes[_mCurrentAttributeId];
+    if(currentAttribute.markedAttendeeIds.empty()){
+        cout<<"--\n";
+    }
+    else {
         bool firstEntryPrinted=false;
-        for(int id:_mAttributes[date_id].markedAttendeeIds){
+        for(int id:currentAttribute.markedAttendeeIds){
             if(firstEntryPrinted){
-                cout<<",";
+                cout<<", ";
             }
             else{
                 firstEntryPrinted=true;
