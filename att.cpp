@@ -49,7 +49,9 @@ int Attendance::setCountLadiesAndGents(int countLadies, int countGents){
 }
 
 void Attendance::adjustEmplaceAtIndex(int& index){
-    //do nothing
+    if(index < _mAttributes.size() - 1){
+        index++;
+    }
 }
 
 void Attendance::setSession(const string& date, const string& title){
@@ -75,7 +77,7 @@ void Attendance::setSession(const string& date, const string& title){
     currentAttribute.countLadies = 0;
     currentAttribute.countGents = 0;
 
-    if(emplaceAtIndex == -1){
+    if((emplaceAtIndex == -1) || (emplaceAtIndex == _mAttributes.size() - 1)){
         _mAttributes.push_back(currentAttribute);
         _mCurrentAttributeId = _mAttributes.size()-1;
     }

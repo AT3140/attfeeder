@@ -42,7 +42,7 @@ void UserInterface::respondToDateCommand(istringstream& is){
 
 void UserInterface::startDateUI(){
     do{
-        printf("(%s) ",att.getSession().c_str());
+        printf("(%s:%s) ",att.getCurrentSessionDate().c_str(),att.getCurrentSessionTitle().c_str());
         char cinput[256];
         cin.getline(cinput,256);
         string input(cinput);

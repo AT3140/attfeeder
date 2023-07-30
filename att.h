@@ -39,7 +39,6 @@ class Attendance{
         void validateAttendees();
         int setCountLadiesAndGents(int countLadies,int countGents);
         void setSession(const string& date, const string& title); 
-        string getSession();
         void clearCurrentDate();
         void printMarkedAttendees();
         int getNametoId(const string& name);
@@ -47,6 +46,8 @@ class Attendance{
         int updateAttendance(int attendeeId,Action action);
         set<int> getActiveSessionIds(const string& date); 
         const string& getSessionTitle(int id); 
+        const string& getCurrentSessionDate();
+        const string& getCurrentSessionTitle();
 
         void render();
     
@@ -72,8 +73,12 @@ inline bool Attendance::isValidationEnabled(){
     return allowValidation;
 }
 
-inline string Attendance::getSession(){
-    return _mAttributes.at(_mCurrentAttributeId).date + ":" + _mAttributes.at(_mCurrentAttributeId).title;
+inline const string& Attendance::getCurrentSessionDate(){
+    return _mAttributes.at(_mCurrentAttributeId).date;
+}
+
+inline const string& Attendance::getCurrentSessionTitle(){
+    return _mAttributes.at(_mCurrentAttributeId).title;
 }
 
 #endif 
