@@ -170,8 +170,10 @@ int Attendance::updateAttendance(int attendeeId, Action action){
             }
         }
         else if(action==UNMARK){
-            currentAttribute.markedAttendeeIds.erase(attendeeId);
-            printf("%s unmarked\n",_mAttendees[attendeeId].c_str());
+            if(isValidAttendeeId(attendeeId)) { 
+                currentAttribute.markedAttendeeIds.erase(attendeeId);
+                printf("%s unmarked\n",_mAttendees[attendeeId].c_str());
+            }
         }
         else if(action==UNAWARE){
             //do nothing
