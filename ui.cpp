@@ -70,7 +70,12 @@ void UserInterface::startDateUI(){
         else if(command=="count"){
             string countLadiesStr="0",countGentsStr="0";
             is>>countLadiesStr; is>>countGentsStr;
-            att.setCountLadiesAndGents(stoi(countLadiesStr),stoi(countGentsStr));
+	    try {
+              att.setCountLadiesAndGents(stoi(countLadiesStr),stoi(countGentsStr));
+	    }
+	    catch(invalid_argument& e) {
+	      cout<<"Only integers allowed!"<<endl;
+	    }
         }    
         else { 
             string name="";
